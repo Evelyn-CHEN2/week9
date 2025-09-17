@@ -1,15 +1,30 @@
 const MongoClient = require('mongodb').MongoClient;
+
+const { adddata } = require('./add.js');
+const { readdata } = require('./read.js');
+const { updatedata } = require('./update.js');
+const { removedata } = require('./remove.js')
+
 const url = 'mongodb://localhost:27017';
-MongoClient.connect(url, function(err, client) {
-    if (err) {
-        return console.log(err)
+
+(async() => {
+    let client;
+    try {
+        client = await MongoClient.connect(url);
+        console.log('Connected to MongoDB')
+        const db = client.db('mydb');    
+        await adddata(db);
+        await readdata(db);
+        await updatedata(db, 2, { price: 4.50});
+        await removedata(db, 3)  
     }
-    const dbName = 'mydb';
-    const db = client.db(dbName);
-
-    var querycb = require('./add.js')
-    querycb.adddata (db, function(res){
-        console.log(res)
-    });
-
-})
+    catch (err) {
+        console.log('Error: ', err)
+    }
+    finally{
+        if(client) {
+            await client.close();
+            console.log('Connection closed')
+        }
+    }
+})();
