@@ -1,0 +1,28 @@
+<h3>Products</h3>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Units</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (product of products; track $index; let i = $index) {
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.units }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+<a routerLink="addproduct">Add</a>
+  
+
+  
