@@ -24,14 +24,14 @@ export class AddProducts {
     this.productService.fetchProducts().subscribe(products => {
       const maxId = products.reduce((max, p) => max > p.id ? max : p.id, 0)
       console.log('max: ', maxId)
-      const product = {
+      const newProdutInfo = {
         id: maxId + 1,
         name: this.name.trim(),
         description: this.description.trim(),
         price: this.price,
         units: this.units
       }
-      this.productService.addProduct(product).subscribe({
+      this.productService.addProduct(newProdutInfo).subscribe({
         next: (data)=> {
           if (data) {
             console.log('Added new product successfully.')

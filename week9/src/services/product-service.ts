@@ -14,7 +14,15 @@ export class ProductService {
     return this.http.get<Product[]>(this.server + '/products')
   }
 
-  addProduct(product: Product): Observable<Product> {
+  addProduct(product: any): Observable<Product> {
     return this.http.post<Product>(this.server + '/addproduct', {product})
+  }
+
+  removeProduct(_id: string): Observable<void> {
+    return this.http.delete<void>(`${this.server}/removeproduct/${_id}`)
+  }
+
+  updateProduct(_id: string, price: number, units: number): Observable<void> {
+    return this.http.put<void>(`${this.server}/updateproduct/${_id}`, {price, units})
   }
 }
