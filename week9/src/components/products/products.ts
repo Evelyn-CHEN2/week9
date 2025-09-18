@@ -34,10 +34,11 @@ export class Products implements OnInit {
   removeProduct(product: Product, event: any) {
     event.preventDefault();
     const _id = product._id
+
     this.productService.removeProduct(_id).subscribe({
       next: () => {
         console.log('Deleted product successfully.')
-        this.products.filter(p => p._id !== _id)
+        this.products = this.products.filter(p => p._id !== _id)
       }
     })
   }
